@@ -1,0 +1,28 @@
+{% extends "erp/layout.html" %}
+{% block title %}Receivables{% endblock %}
+{% block content %}
+<h1>Receivables — customer invoices</h1>
+<form method="get" class="search">
+  <label for="status">Status</label>
+  <select id="status" name="status">
+    {% for s in ["all", "open", "paid"] %}<option value="{{ s }}" {% if s == status %}selected{% endif %}>{{ s }}</option>{% endfor %}
+  </select>
+  <button type="submit">Filter</button>
+</form>
+<p>{{ total }} invoices · page {{ page }} of {{ pages }}</p>
+<table>
+  <thead><tr><th>Invoice</th><th>Customer</th><th>Description</th><th>Issued</th><th>Due date</th><th>Amount</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for i in invoices %}
+    <tr><td>{{ i.id }}</td><td><a href="/erp/customers/{{ i.customer_id }}">{{ i.customer_name }}</a></td>
+        <td>{{ i.description }}</td><td>{{ uk_date(i.issued_on) }}</td><td>{{ uk_date(i.due_on) }}</td>
+        <td>{{ money(i.amount_cents) }}</td><td>{{ i.status }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+<nav class="pager" aria-label="Pagination">
+  {% if page > 1 %}<a href="/erp/invoices?status={{ status }}&page={{ page - 1 }}">‹ Previous</a>{% endif %}
+  <span>Page {{ page }} of {{ pages }}</span>
+  {% if page < pages %}<a href="/erp/invoices?status={{ status }}&page={{ page + 1 }}">Next ›</a>{% endif %}
+</nav>
+{% endblock %}

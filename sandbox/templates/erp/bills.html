@@ -1,0 +1,23 @@
+{% extends "erp/layout.html" %}
+{% block title %}Bills{% endblock %}
+{% block content %}
+<h1>Vendor bills</h1>
+<p><a href="/erp/bills/new">+ Enter a new bill</a></p>
+<form method="get" class="search">
+  <label for="q">Search bills (bill no., vendor invoice no., vendor, PO)</label>
+  <input id="q" name="q" value="{{ q }}" type="search">
+  <button type="submit">Search</button>
+</form>
+<table>
+  <thead><tr><th>Bill</th><th>Vendor</th><th>Vendor invoice #</th><th>PO</th><th>Invoice date</th><th>Due</th><th>Amount</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for b in bills %}
+    <tr><td><a href="/erp/bills/{{ b.id }}">{{ b.id }}</a></td><td>{{ b.vendor_name }}</td><td>{{ b.vendor_invoice_no }}</td>
+        <td>{{ b.po_id }}</td><td>{{ uk_date(b.invoice_date) }}</td><td>{{ uk_date(b.due_date) }}</td>
+        <td>{{ money(b.amount_cents) }}</td><td>{{ b.status }}</td></tr>
+  {% else %}
+    <tr><td colspan="8">No bills match.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

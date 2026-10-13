@@ -1,0 +1,36 @@
+{% extends "hr/layout.html" %}
+{% block title %}New hire{% endblock %}
+{% block content %}
+<h1>Add a new hire</h1>
+{% for e in errors %}<div class="flash flash-error" role="alert">{{ e }}</div>{% endfor %}
+<form method="post">
+  <label for="full_name">Full name</label>
+  <input id="full_name" name="full_name" value="{{ form.full_name }}">
+  <label for="personal_email">Personal email</label>
+  <input id="personal_email" name="personal_email" type="email" value="{{ form.personal_email }}" required>
+  <label for="title">Job title</label>
+  <select id="title" name="title">
+    <option value="">-- choose --</option>
+    {% for t in titles %}<option {% if form.title == t %}selected{% endif %}>{{ t }}</option>{% endfor %}
+  </select>
+  <label for="department">Department</label>
+  <select id="department" name="department">
+    <option value="">-- choose --</option>
+    {% for d in departments %}<option {% if form.department == d %}selected{% endif %}>{{ d }}</option>{% endfor %}
+  </select>
+  <label for="manager_id">Manager</label>
+  <select id="manager_id" name="manager_id">
+    <option value="">-- choose --</option>
+    {% for m in managers %}<option value="{{ m.id }}" {% if form.manager_id == m.id %}selected{% endif %}>{{ m.full_name }} ({{ m.title }})</option>{% endfor %}
+  </select>
+  <label for="start_date">Start date</label>
+  <input id="start_date" name="start_date" type="date" value="{{ form.start_date }}">
+  <fieldset>
+    <legend>Employment type</legend>
+    {% for t in types %}
+    <label><input type="radio" name="employment_type" value="{{ t }}" {% if form.employment_type == t %}checked{% endif %}> {{ t }}</label>
+    {% endfor %}
+  </fieldset>
+  <button type="submit">Create employee record</button>
+</form>
+{% endblock %}

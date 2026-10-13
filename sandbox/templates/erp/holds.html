@@ -1,0 +1,18 @@
+{% extends "erp/layout.html" %}
+{% block title %}AP holds{% endblock %}
+{% block content %}
+<h1>AP holds</h1>
+<p><a href="/erp/ap-holds/new">+ Place an invoice on hold</a></p>
+<table>
+  <thead><tr><th>Hold</th><th>Vendor</th><th>Vendor invoice #</th><th>PO</th><th>Amount</th><th>Reason</th><th>Details</th><th>Status</th><th>Created</th></tr></thead>
+  <tbody>
+  {% for h in holds %}
+    <tr><td>{{ h.id }}</td><td>{{ h.vendor_name }}</td><td>{{ h.vendor_invoice_no }}</td><td>{{ h.po_id or "—" }}</td>
+        <td>{{ money(h.amount_cents) }}</td><td>{{ h.reason }}</td><td>{{ h.details }}</td><td>{{ h.status }}</td>
+        <td>{{ uk_date(h.created_at) }}</td></tr>
+  {% else %}
+    <tr><td colspan="9">No holds.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,22 @@
+# Who can approve what. Referenced by approver keys in actions.yaml.
+approvers:
+  finance_manager:
+    name: Maria Gomez
+    title: Finance Manager
+    email: maria.gomez@northwind.example
+  controller:
+    name: Raj Patel
+    title: Controller
+    email: raj.patel@northwind.example
+  it_security:
+    name: Lena Fischer
+    title: IT Security Lead
+    email: lena.fischer@northwind.example
+  comms:
+    name: Chris Novak
+    title: Communications Lead
+    email: chris.novak@northwind.example
+  operations_lead:
+    name: Olivia Chen
+    title: COO
+    email: olivia.chen@northwind.example

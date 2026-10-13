@@ -1,0 +1,16 @@
+{% extends "hr/layout.html" %}
+{% block title %}Directory{% endblock %}
+{% block content %}
+<h1>Employee directory</h1>
+<p><a href="/hr/employees/new">+ Add a new hire</a></p>
+<table>
+  <thead><tr><th>ID</th><th>Name</th><th>Title</th><th>Department</th><th>Manager</th><th>Work email</th><th>Start date</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for e in employees %}
+    <tr><td><a href="/hr/employees/{{ e.id }}">{{ e.id }}</a></td><td>{{ e.full_name }}</td><td>{{ e.title }}</td>
+        <td>{{ e.department }}</td><td>{{ e.manager_name or "—" }}</td><td>{{ e.work_email or "—" }}</td>
+        <td>{{ e.start_date }}</td><td>{{ e.status }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

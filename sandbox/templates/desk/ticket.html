@@ -1,0 +1,34 @@
+{% extends "desk/layout.html" %}
+{% block title %}#{{ t.id }} {{ t.subject }}{% endblock %}
+{% block content %}
+<h1>#{{ t.id }} — {{ t.subject }}</h1>
+<dl class="facts">
+  <dt>Requester</dt><dd>{{ t.requester_name }} &lt;{{ t.requester_email }}&gt;</dd>
+  <dt>Customer</dt><dd>{{ t.customer_id or "—" }}</dd>
+  <dt>Status</dt><dd>{{ t.status }}</dd>
+  <dt>Priority</dt><dd>{{ t.priority }}</dd>
+  <dt>Tags</dt><dd>{{ t.tags or "—" }}</dd>
+</dl>
+<h2>Conversation</h2>
+{% for m in messages %}
+<article class="message {% if m.internal %}internal{% endif %}">
+  <header>{{ m.author }} · {{ m.created_at }}{% if m.internal %} · internal note{% endif %}</header>
+  <p>{{ m.body | replace("\n", " ") }}</p>
+</article>
+{% endfor %}
+<h2>Reply</h2>
+<form method="post" action="/desk/tickets/{{ t.id }}/reply">
+  <label for="body">Message</label>
+  <textarea id="body" name="body" rows="4"></textarea>
+  <label><input type="checkbox" name="internal"> Internal note (not visible to customer)</label>
+  <button type="submit">Send reply</button>
+</form>
+<h2>Status</h2>
+<form method="post" action="/desk/tickets/{{ t.id }}/status">
+  <label for="status">Ticket status</label>
+  <select id="status" name="status">
+    {% for s in statuses %}<option {% if s == t.status %}selected{% endif %}>{{ s }}</option>{% endfor %}
+  </select>
+  <button type="submit">Update status</button>
+</form>
+{% endblock %}

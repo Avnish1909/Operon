@@ -1,0 +1,22 @@
+{% extends "erp/layout.html" %}
+{% block title %}Purchase orders{% endblock %}
+{% block content %}
+<h1>Purchase orders</h1>
+<form method="get" class="search">
+  <label for="q">Search POs</label>
+  <input id="q" name="q" value="{{ q }}" type="search">
+  <button type="submit">Search</button>
+</form>
+<table>
+  <thead><tr><th>PO</th><th>Vendor</th><th>Description</th><th>Amount</th><th>Status</th><th>Created</th><th>Requested by</th></tr></thead>
+  <tbody>
+  {% for po in pos %}
+    <tr><td><a href="/erp/purchase-orders/{{ po.id }}">{{ po.id }}</a></td><td>{{ po.vendor_name }}</td>
+        <td>{{ po.description }}</td><td>{{ money(po.amount_cents) }}</td><td>{{ po.status }}</td>
+        <td>{{ uk_date(po.created_on) }}</td><td>{{ po.requested_by }}</td></tr>
+  {% else %}
+    <tr><td colspan="7">No purchase orders match.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

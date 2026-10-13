@@ -1,0 +1,13 @@
+{% extends "erp/layout.html" %}
+{% block title %}Vendors{% endblock %}
+{% block content %}
+<h1>Vendors</h1>
+<table>
+  <thead><tr><th>ID</th><th>Name</th><th>Billing email</th><th>Payment terms</th></tr></thead>
+  <tbody>
+  {% for v in vendors %}
+    <tr><td>{{ v.id }}</td><td>{{ v.name }}</td><td>{{ v.email }}</td><td>Net {{ v.terms_days }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "desk/layout.html" %}
+{% block title %}Tickets{% endblock %}
+{% block content %}
+<h1>Tickets{% if status %} — {{ status }}{% endif %}</h1>
+<table>
+  <thead><tr><th>#</th><th>Subject</th><th>Requester</th><th>Customer</th><th>Status</th><th>Priority</th><th>Updated</th></tr></thead>
+  <tbody>
+  {% for t in tickets %}
+    <tr><td><a href="/desk/tickets/{{ t.id }}">{{ t.id }}</a></td><td>{{ t.subject }}</td>
+        <td>{{ t.requester_name }}</td><td>{{ t.customer_id or "—" }}</td><td>{{ t.status }}</td>
+        <td>{{ t.priority }}</td><td>{{ t.updated_at }}</td></tr>
+  {% else %}
+    <tr><td colspan="7">No tickets.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

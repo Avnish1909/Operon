@@ -1,0 +1,24 @@
+{% extends "erp/layout.html" %}
+{% block title %}New bill{% endblock %}
+{% block content %}
+<h1>Enter vendor bill</h1>
+{% for e in errors %}<div class="flash flash-error" role="alert">{{ e }}</div>{% endfor %}
+<form method="post">
+  <label for="vendor_id">Vendor</label>
+  <select id="vendor_id" name="vendor_id">
+    <option value="">-- select vendor --</option>
+    {% for v in vendors %}<option value="{{ v.id }}" {% if form.vendor_id == v.id %}selected{% endif %}>{{ v.name }}</option>{% endfor %}
+  </select>
+  <label for="po_number">PO number</label>
+  <input id="po_number" name="po_number" value="{{ form.po_number }}">
+  <label for="vendor_invoice_no">Vendor invoice number</label>
+  <input id="vendor_invoice_no" name="vendor_invoice_no" value="{{ form.vendor_invoice_no }}">
+  <label for="invoice_date">Invoice date</label>
+  <input id="invoice_date" name="invoice_date" value="{{ form.invoice_date }}">
+  <label for="amount">Amount (USD)</label>
+  <input id="amount" name="amount" value="{{ form.amount }}" inputmode="decimal">
+  <label for="notes">Notes</label>
+  <textarea id="notes" name="notes" rows="2">{{ form.notes }}</textarea>
+  <button type="submit">Save bill</button>
+</form>
+{% endblock %}

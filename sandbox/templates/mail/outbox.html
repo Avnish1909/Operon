@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Sent mail{% endblock %}
+{% block content %}
+<h1>Sent mail</h1>
+{% for m in emails %}
+<article class="message">
+  <header><strong>{{ m.subject }}</strong> · {{ m.sent_at }} · {{ m.id }}</header>
+  <p>From {{ m.from }} to {{ m.to | join(", ") }}{% if m.cc %} (cc {{ m.cc | join(", ") }}){% endif %}</p>
+  <pre>{{ m.body }}</pre>
+  {% if m.attachments %}<p>Attachments: {% for a in m.attachments %}{{ a.path }} ({{ a.bytes }} bytes) {% endfor %}</p>{% endif %}
+</article>
+{% else %}
+<p>No mail sent.</p>
+{% endfor %}
+{% endblock %}

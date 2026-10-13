@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>Northwind Supply Co. — intranet</h1>
+<ul class="cards">
+  <li><a href="/erp/">Northwind Ledger</a> — ERP: customers, payments, refunds, receivables, vendors, POs, bills</li>
+  <li><a href="/desk/">Northwind Desk</a> — customer support tickets</li>
+  <li><a href="/hr/">PeoplePort</a> — HR records and access provisioning</li>
+  <li><a href="/mail/">Northwind Mail</a> — sent mail log</li>
+</ul>
+<p class="muted">Demo login for people exploring the sandbox: <code>manager</code> / <code>northwind</code>.</p>
+{% endblock %}

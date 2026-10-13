@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "operon"
+version = "0.1.0"
+description = "An autonomous company operator (AI employee) prototype: understands a request, plans, acts in browsers/APIs/files under policy, verifies independently, and reports evidence."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=1.13",
+    "playwright>=1.50",
+    "flask>=3.0",
+    "pyyaml>=6.0",
+    "rich>=13.0",
+    "openpyxl>=3.1",
+    "pymupdf>=1.24",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+operon = "operon.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["operon*", "sandbox*", "scenarios*"]
+
+[tool.setuptools.package-data]
+operon = ["tools/snapshot.js"]
+sandbox = ["templates/**/*", "static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["browser: tests that drive a real Chromium (needs `playwright install chromium`)"]

@@ -1,0 +1,61 @@
+{% extends "erp/layout.html" %}
+{% block title %}{{ c.name }}{% endblock %}
+{% block content %}
+<h1>{{ c.name }} <small>{{ c.id }}</small></h1>
+<dl class="facts">
+  <dt>Contact</dt><dd>{{ c.contact_name }} — {{ c.email }} — {{ c.phone }}</dd>
+  <dt>Tier</dt><dd>{{ c.tier }}</dd>
+  <dt>Status</dt><dd>{{ c.status }}</dd>
+  <dt>Customer since</dt><dd>{{ uk_date(c.created_on) }}</dd>
+</dl>
+
+<h2>Payments</h2>
+<table>
+  <thead><tr><th>Payment</th><th>Date</th><th>Invoice</th><th>Amount</th><th>Method</th><th>Status</th><th>Refunded</th><th></th></tr></thead>
+  <tbody>
+  {% for p in payments %}
+    <tr>
+      <td>{{ p.id }}</td><td>{{ uk_date(p.created_at) }} {{ p.created_at[11:16] }}</td><td>{{ p.invoice_id }}</td>
+      <td>{{ money(p.amount_cents) }}</td>
+      <td>{{ p.method }}{% if p.card_last4 %} •••• {{ p.card_last4 }}{% endif %}</td>
+      <td>{{ p.status }}</td><td>{{ money(p.refunded) if p.refunded else "—" }}</td>
+      <td>{% if p.refunded < p.amount_cents %}<a href="/erp/payments/{{ p.id }}/refund">Refund</a>{% endif %}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="8">No payments.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Refunds</h2>
+<table>
+  <thead><tr><th>Refund</th><th>Payment</th><th>Amount</th><th>Reason</th><th>Note</th><th>By</th><th>Date</th></tr></thead>
+  <tbody>
+  {% for r in refunds %}
+    <tr><td>{{ r.id }}</td><td>{{ r.payment_id }}</td><td>{{ money(r.amount_cents) }}</td><td>{{ r.reason }}</td>
+        <td>{{ r.note }}</td><td>{{ r.created_by }}</td><td>{{ uk_date(r.created_at) }}</td></tr>
+  {% else %}
+    <tr><td colspan="7">No refunds.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Invoices</h2>
+<table>
+  <thead><tr><th>Invoice</th><th>Description</th><th>Issued</th><th>Due date</th><th>Amount</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for i in invoices %}
+    <tr><td>{{ i.id }}</td><td>{{ i.description }}</td><td>{{ uk_date(i.issued_on) }}</td><td>{{ uk_date(i.due_on) }}</td>
+        <td>{{ money(i.amount_cents) }}</td><td>{{ i.status }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<details class="danger">
+  <summary>Danger zone</summary>
+  <form method="post" action="/erp/customers/{{ c.id }}/delete"
+        onsubmit="return confirm('Permanently delete {{ c.name }} and all related data?');">
+    <button type="submit" class="danger">Delete customer</button>
+  </form>
+</details>
+{% endblock %}

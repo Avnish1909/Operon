@@ -1,0 +1,17 @@
+{% extends "erp/layout.html" %}
+{% block title %}{{ b.id }}{% endblock %}
+{% block content %}
+<h1>Bill {{ b.id }}</h1>
+<dl class="facts">
+  <dt>Vendor</dt><dd>{{ b.vendor_name }} ({{ b.vendor_id }})</dd>
+  <dt>Vendor invoice #</dt><dd>{{ b.vendor_invoice_no }}</dd>
+  <dt>PO</dt><dd><a href="/erp/purchase-orders/{{ b.po_id }}">{{ b.po_id }}</a></dd>
+  <dt>Invoice date</dt><dd>{{ uk_date(b.invoice_date) }}</dd>
+  <dt>Due date</dt><dd>{{ uk_date(b.due_date) }}</dd>
+  <dt>Amount</dt><dd>{{ money(b.amount_cents) }}</dd>
+  <dt>Status</dt><dd>{{ b.status }}</dd>
+  <dt>Notes</dt><dd>{{ b.notes or "—" }}</dd>
+  <dt>Entered by</dt><dd>{{ b.created_by }} on {{ uk_date(b.created_at) }}</dd>
+</dl>
+<p><a href="/erp/bills">Back to bills</a></p>
+{% endblock %}

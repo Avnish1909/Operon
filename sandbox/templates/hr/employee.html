@@ -1,0 +1,31 @@
+{% extends "hr/layout.html" %}
+{% block title %}{{ e.full_name }}{% endblock %}
+{% block content %}
+<h1>{{ e.full_name }} <small>{{ e.id }}</small></h1>
+<dl class="facts">
+  <dt>Title</dt><dd>{{ e.title }}</dd>
+  <dt>Department</dt><dd>{{ e.department }}</dd>
+  <dt>Manager</dt><dd>{{ e.manager_name or "—" }}</dd>
+  <dt>Start date</dt><dd>{{ e.start_date }}</dd>
+  <dt>Employment type</dt><dd>{{ e.employment_type }}</dd>
+  <dt>Work email</dt><dd>{{ e.work_email or "not provisioned" }}</dd>
+  <dt>Personal email</dt><dd>{{ e.personal_email or "—" }}</dd>
+  <dt>Status</dt><dd>{{ e.status }}</dd>
+</dl>
+<h2>Access</h2>
+<ul>
+  {% for code in granted %}<li>{{ code }} — {{ labels.get(code, code) }}</li>{% else %}<li>No access granted yet.</li>{% endfor %}
+</ul>
+{% if available %}
+<h2>Grant access</h2>
+<form method="post" action="/hr/employees/{{ e.id }}/access">
+  <fieldset>
+    <legend>Entitlements</legend>
+    {% for code, label in available %}
+    <label><input type="checkbox" name="entitlements" value="{{ code }}"> {{ code }} — {{ label }}</label>
+    {% endfor %}
+  </fieldset>
+  <button type="submit">Grant selected access</button>
+</form>
+{% endif %}
+{% endblock %}

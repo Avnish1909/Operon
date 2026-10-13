@@ -1,0 +1,16 @@
+{% extends "erp/layout.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<p>Business date: {{ business_date }}</p>
+<ul class="cards">
+  <li><a href="/erp/invoices?status=open">Open receivables</a>: {{ counts.open_invoices }}</li>
+  <li><a href="/erp/bills">Bills pending approval</a>: {{ counts.pending_bills }}</li>
+  <li><a href="/erp/ap-holds">Open AP holds</a>: {{ counts.open_holds }}</li>
+</ul>
+<h2>Quick actions</h2>
+<ul>
+  <li><a href="/erp/bills/new">Enter a vendor bill</a></li>
+  <li><a href="/erp/ap-holds/new">Place an invoice on AP hold</a></li>
+</ul>
+{% endblock %}

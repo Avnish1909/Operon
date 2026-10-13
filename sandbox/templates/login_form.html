@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<section class="login">
+  <h1>Sign in to {{ system_name }}</h1>
+  {% if expired %}<div class="flash flash-error" role="alert">Your session has expired. Please sign in again.</div>{% endif %}
+  {% if error %}<div class="flash flash-error" role="alert">{{ error }}</div>{% endif %}
+  <form method="post">
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" autocomplete="username">
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password">
+    <button type="submit">Sign in</button>
+  </form>
+</section>
+{% endblock %}

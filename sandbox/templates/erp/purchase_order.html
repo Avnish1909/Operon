@@ -1,0 +1,24 @@
+{% extends "erp/layout.html" %}
+{% block title %}{{ po.id }}{% endblock %}
+{% block content %}
+<h1>Purchase order {{ po.id }}</h1>
+<dl class="facts">
+  <dt>Vendor</dt><dd>{{ po.vendor_name }} ({{ po.vendor_id }})</dd>
+  <dt>Description</dt><dd>{{ po.description }}</dd>
+  <dt>PO amount</dt><dd>{{ money(po.amount_cents) }}</dd>
+  <dt>Status</dt><dd>{{ po.status }}</dd>
+  <dt>Created</dt><dd>{{ uk_date(po.created_on) }} by {{ po.requested_by }}</dd>
+</dl>
+<h2>Bills against this PO</h2>
+<table>
+  <thead><tr><th>Bill</th><th>Vendor invoice #</th><th>Invoice date</th><th>Amount</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for b in bills %}
+    <tr><td><a href="/erp/bills/{{ b.id }}">{{ b.id }}</a></td><td>{{ b.vendor_invoice_no }}</td>
+        <td>{{ uk_date(b.invoice_date) }}</td><td>{{ money(b.amount_cents) }}</td><td>{{ b.status }}</td></tr>
+  {% else %}
+    <tr><td colspan="5">No bills entered yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

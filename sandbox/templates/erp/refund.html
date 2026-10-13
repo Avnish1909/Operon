@@ -1,0 +1,26 @@
+{% extends "erp/layout.html" %}
+{% block title %}Refund {{ p.id }}{% endblock %}
+{% block content %}
+<h1>Refund payment {{ p.id }}</h1>
+<dl class="facts">
+  <dt>Customer</dt><dd><a href="/erp/customers/{{ p.customer_id }}">{{ p.customer_name }}</a> ({{ p.customer_id }})</dd>
+  <dt>Invoice</dt><dd>{{ p.invoice_id }}</dd>
+  <dt>Paid</dt><dd>{{ money(p.amount_cents) }} on {{ uk_date(p.created_at) }} {{ p.created_at[11:16] }}</dd>
+  <dt>Already refunded</dt><dd>{{ money(p.refunded) if p.refunded else "$0.00" }}</dd>
+  <dt>Refundable balance</dt><dd>{{ money(refundable) }}</dd>
+</dl>
+{% for e in errors %}<div class="flash flash-error" role="alert">{{ e }}</div>{% endfor %}
+<form method="post" id="refund-form"
+      onsubmit="return confirm('Issue a refund of $' + document.getElementById('amount').value + ' to {{ p.customer_name }}?');">
+  <table class="form-grid">
+    <tr><td>Refund amount (USD)</td><td><input id="amount" name="amount" value="{{ form.amount }}" inputmode="decimal"></td></tr>
+    <tr><td>Reason</td><td>
+      <select name="reason" aria-label="Reason">
+        <option value="">-- choose --</option>
+        {% for r in reasons %}<option {% if form.reason == r %}selected{% endif %}>{{ r }}</option>{% endfor %}
+      </select></td></tr>
+    <tr><td>Internal note</td><td><textarea name="note" aria-label="Internal note" rows="3">{{ form.note }}</textarea></td></tr>
+  </table>
+  <button type="submit">Issue refund</button>
+</form>
+{% endblock %}

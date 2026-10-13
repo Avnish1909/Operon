@@ -1,0 +1,41 @@
+:root { --accent: #2b6cb0; --bg: #f7f8fa; --ink: #1d2433; --muted: #6b7280; --line: #d9dde5; }
+.theme-erp  { --accent: #7a4d14; --bg: #f6f2ea; }
+.theme-desk { --accent: #0f766e; }
+.theme-hr   { --accent: #6d28d9; }
+.theme-mail { --accent: #b91c1c; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); }
+.topbar { display: flex; gap: 18px; align-items: center; padding: 10px 20px; background: var(--accent); color: #fff; flex-wrap: wrap; }
+.topbar a { color: #fff; text-decoration: none; margin-right: 12px; }
+.topbar .brand { font-weight: 700; font-size: 16px; }
+.signout { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+main { padding: 20px; max-width: 1200px; }
+h1 small { color: var(--muted); font-weight: 400; font-size: 60%; }
+table { border-collapse: collapse; width: 100%; background: #fff; margin: 8px 0 20px; }
+th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background: #eef0f4; }
+.flash { padding: 8px 12px; margin: 8px 0; border-radius: 4px; }
+.flash-success { background: #e6f4ea; border: 1px solid #9bd3ae; }
+.flash-error { background: #fdecea; border: 1px solid #f5a99f; }
+form label { display: block; margin-top: 10px; font-weight: 600; }
+form fieldset label { font-weight: 400; }
+input, select, textarea { padding: 6px; border: 1px solid var(--line); border-radius: 4px; min-width: 280px; font: inherit; }
+input[type=checkbox], input[type=radio] { min-width: 0; }
+button { margin-top: 12px; padding: 7px 14px; border: 0; border-radius: 4px; background: var(--accent); color: #fff; cursor: pointer; font: inherit; }
+.topbar button { margin: 0; background: rgba(255,255,255,.2); }
+button.danger { background: #b91c1c; }
+.search { display: flex; gap: 8px; align-items: end; margin-bottom: 10px; }
+.search label { margin: 0; }
+.search button { margin: 0; }
+.facts { display: grid; grid-template-columns: 180px 1fr; gap: 4px 12px; background: #fff; padding: 12px; border: 1px solid var(--line); }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.message { background: #fff; border: 1px solid var(--line); padding: 8px 12px; margin: 8px 0; }
+.message.internal { background: #fffbe6; }
+.message header { color: var(--muted); font-size: 12px; }
+.danger { margin-top: 30px; }
+.form-grid td { border: 0; }
+.muted { color: var(--muted); }
+.pager { display: flex; gap: 16px; }
+.cards li { margin: 6px 0; }
+.login { max-width: 360px; }

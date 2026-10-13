@@ -1,0 +1,41 @@
+# .venv/
+# __pycache__/
+# *.pyc
+# *.egg-info/
+# .pytest_cache/
+# .env
+# var/
+# runs/
+# .claude/settings.local.json
+
+
+# Python virtual environment
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Python packaging
+*.egg-info/
+build/
+dist/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Runtime data and logs
+var/
+runs/
+
+# Local Claude settings
+.claude/settings.local.json
+
+# IDE and operating system files
+.vscode/
+.DS_Store
+Thumbs.db

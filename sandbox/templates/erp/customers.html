@@ -1,0 +1,21 @@
+{% extends "erp/layout.html" %}
+{% block title %}Customers{% endblock %}
+{% block content %}
+<h1>Customers</h1>
+<form method="get" class="search">
+  <label for="q">Search customers</label>
+  <input id="q" name="q" value="{{ q }}" type="search">
+  <button type="submit">Search</button>
+</form>
+<table>
+  <thead><tr><th>ID</th><th>Name</th><th>Contact</th><th>Email</th><th>Tier</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for c in customers %}
+    <tr><td><a href="/erp/customers/{{ c.id }}">{{ c.id }}</a></td><td>{{ c.name }}</td><td>{{ c.contact_name }}</td>
+        <td>{{ c.email }}</td><td>{{ c.tier }}</td><td>{{ c.status }}</td></tr>
+  {% else %}
+    <tr><td colspan="6">No customers match.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

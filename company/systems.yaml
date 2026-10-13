@@ -1,0 +1,44 @@
+# System registry — the company's existing tools the operator may use, and how.
+# The browser and API tools can only reach URLs under these systems (egress allowlist).
+# ${SANDBOX_URL} defaults to the local sandbox; point it at real systems to use real ones.
+
+base_url: ${SANDBOX_URL}
+
+systems:
+  erp:
+    name: Northwind Ledger (ERP)
+    url: /erp/
+    interfaces: [web]
+    purpose: customers, payments, refunds, receivables (customer invoices), vendors, purchase orders, vendor bills, AP holds
+    sign_in: "username ops.agent, password {{secret:erp.password}}"
+
+  desk:
+    name: Northwind Desk (helpdesk)
+    url: /desk/
+    interfaces: [api, web]
+    purpose: customer support tickets and conversations
+    sign_in: "web UI only: username ops.agent, password {{secret:desk.password}} (the API needs no sign-in)"
+    api:
+      base: /desk/api/
+      auth_header: X-API-Key
+      secret: desk.api_key
+
+  hr:
+    name: PeoplePort (HR portal)
+    url: /hr/
+    interfaces: [web]
+    purpose: employee records and access provisioning
+    sign_in: "username ops.agent, password {{secret:hr.password}}"
+
+  mail:
+    name: Northwind Mail
+    url: /mail/
+    interfaces: [api]
+    purpose: sending email
+    api:
+      base: /mail/api/
+      auth_header: X-API-Key
+      secret: mail.api_key
+
+# Static assets shared by the web systems.
+extra_allowed_paths: [/static/]
