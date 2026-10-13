@@ -1,3 +1,4 @@
+
 # Operon — an autonomous company operator
 
 Operon takes a short business request — *"Ticket 1042 — the customer says they were charged twice. Can you sort
@@ -387,3 +388,5 @@ docs/          SETUP.md — installation guide · sample-run/ — a complete liv
   confirmed after repeated use.
 - **The sandbox is one company.** The agent code has no Northwind-specific logic. Generalisation is tested
   through task variety rather than a second company; adding one is a matter of `company/` config plus systems.
+
+
